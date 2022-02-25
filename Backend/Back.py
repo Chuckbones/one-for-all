@@ -45,3 +45,5 @@ def upload_file():
       <input type=submit value=Upload>
     </form>
     '''
+
+app.run(debug=True, host="localhost")
