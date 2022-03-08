@@ -1,10 +1,6 @@
 import os
 
-from flask import Flask
-from flask import request
-from flask import redirect
-from flask import flash
-from flask import url_for
+from flask import Flask , request , redirect ,flash , url_for
 from werkzeug.utils import secure_filename
 
 
@@ -12,7 +8,7 @@ UPLOAD_FOLDER = 'D:\oneforall'
 ALLOWED_EXTENSIONS = {'txt'}
 
 app=Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -22,13 +18,12 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        # check if the post request has the file part
+
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
+
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)

@@ -13,66 +13,75 @@
 11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 11-->D:\oneforall2\app\src\main\AndroidManifest.xml:5:5-6:66
 11-->D:\oneforall2\app\src\main\AndroidManifest.xml:6:9-64
-12
-13    <application
-13-->D:\oneforall2\app\src\main\AndroidManifest.xml:11:5-30:19
-14        android:allowBackup="true"
-14-->D:\oneforall2\app\src\main\AndroidManifest.xml:12:9-35
-15        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-15-->[androidx.core:core:1.7.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\d79cd730aff89e16bbe6bbee05f6ceb1\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
-16        android:debuggable="true"
-17        android:icon="@mipmap/ic_launcher"
-17-->D:\oneforall2\app\src\main\AndroidManifest.xml:13:9-43
-18        android:label="@string/app_name"
-18-->D:\oneforall2\app\src\main\AndroidManifest.xml:14:9-41
-19        android:roundIcon="@mipmap/ic_launcher_round"
-19-->D:\oneforall2\app\src\main\AndroidManifest.xml:15:9-54
-20        android:supportsRtl="true"
-20-->D:\oneforall2\app\src\main\AndroidManifest.xml:16:9-35
-21        android:testOnly="true"
-22        android:theme="@style/Theme.Oneforall"
-22-->D:\oneforall2\app\src\main\AndroidManifest.xml:19:9-47
-23        android:usesCleartextTraffic="true" >
-23-->D:\oneforall2\app\src\main\AndroidManifest.xml:17:9-44
-24        <activity
-24-->D:\oneforall2\app\src\main\AndroidManifest.xml:21:9-29:20
-25            android:name="com.example.oneforall.MainActivity"
-25-->D:\oneforall2\app\src\main\AndroidManifest.xml:22:13-41
-26            android:exported="true" >
-26-->D:\oneforall2\app\src\main\AndroidManifest.xml:23:13-36
-27            <intent-filter>
-27-->D:\oneforall2\app\src\main\AndroidManifest.xml:24:13-28:29
-28                <action android:name="android.intent.action.MAIN" />
-28-->D:\oneforall2\app\src\main\AndroidManifest.xml:25:17-69
-28-->D:\oneforall2\app\src\main\AndroidManifest.xml:25:25-66
-29
-30                <category android:name="android.intent.category.LAUNCHER" />
-30-->D:\oneforall2\app\src\main\AndroidManifest.xml:27:17-77
-30-->D:\oneforall2\app\src\main\AndroidManifest.xml:27:27-74
-31            </intent-filter>
-32        </activity>
-33
-34        <provider
-34-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
-35            android:name="androidx.startup.InitializationProvider"
-35-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
-36            android:authorities="com.example.oneforall.androidx-startup"
-36-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
-37            android:exported="false" >
-37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
-38            <meta-data
-38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
-39                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-39-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
-40                android:value="androidx.startup" />
-40-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->D:\oneforall2\app\src\main\AndroidManifest.xml:7:5-80
+12-->D:\oneforall2\app\src\main\AndroidManifest.xml:7:22-78
+13    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+13-->D:\oneforall2\app\src\main\AndroidManifest.xml:8:5-81
+13-->D:\oneforall2\app\src\main\AndroidManifest.xml:8:22-79
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->D:\oneforall2\app\src\main\AndroidManifest.xml:9:5-66
+14-->D:\oneforall2\app\src\main\AndroidManifest.xml:9:22-64
+15
+16    <application
+16-->D:\oneforall2\app\src\main\AndroidManifest.xml:15:5-34:19
+17        android:allowBackup="true"
+17-->D:\oneforall2\app\src\main\AndroidManifest.xml:16:9-35
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.7.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\d79cd730aff89e16bbe6bbee05f6ceb1\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+19        android:debuggable="true"
+20        android:icon="@mipmap/ic_launcher"
+20-->D:\oneforall2\app\src\main\AndroidManifest.xml:17:9-43
+21        android:label="@string/app_name"
+21-->D:\oneforall2\app\src\main\AndroidManifest.xml:18:9-41
+22        android:roundIcon="@mipmap/ic_launcher_round"
+22-->D:\oneforall2\app\src\main\AndroidManifest.xml:19:9-54
+23        android:supportsRtl="true"
+23-->D:\oneforall2\app\src\main\AndroidManifest.xml:20:9-35
+24        android:testOnly="true"
+25        android:theme="@style/Theme.Oneforall"
+25-->D:\oneforall2\app\src\main\AndroidManifest.xml:23:9-47
+26        android:usesCleartextTraffic="true" >
+26-->D:\oneforall2\app\src\main\AndroidManifest.xml:21:9-44
+27        <activity
+27-->D:\oneforall2\app\src\main\AndroidManifest.xml:25:9-33:20
+28            android:name="com.example.oneforall.MainActivity"
+28-->D:\oneforall2\app\src\main\AndroidManifest.xml:26:13-41
+29            android:exported="true" >
+29-->D:\oneforall2\app\src\main\AndroidManifest.xml:27:13-36
+30            <intent-filter>
+30-->D:\oneforall2\app\src\main\AndroidManifest.xml:28:13-32:29
+31                <action android:name="android.intent.action.MAIN" />
+31-->D:\oneforall2\app\src\main\AndroidManifest.xml:29:17-69
+31-->D:\oneforall2\app\src\main\AndroidManifest.xml:29:25-66
+32
+33                <category android:name="android.intent.category.LAUNCHER" />
+33-->D:\oneforall2\app\src\main\AndroidManifest.xml:31:17-77
+33-->D:\oneforall2\app\src\main\AndroidManifest.xml:31:27-74
+34            </intent-filter>
+35        </activity>
+36
+37        <provider
+37-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+38            android:name="androidx.startup.InitializationProvider"
+38-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
+39            android:authorities="com.example.oneforall.androidx-startup"
+39-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
+40            android:exported="false" >
+40-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
 41            <meta-data
-41-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
-42                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-42-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+41-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+42                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+42-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
 43                android:value="androidx.startup" />
-43-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
-44        </provider>
-45    </application>
-46
-47</manifest>
+43-->[androidx.emoji2:emoji2:1.0.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7a8fe7a0d27e6111d8f26a88e3f3f946\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+44            <meta-data
+44-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+45                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+45-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+46                android:value="androidx.startup" />
+46-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\Ashish Jauhari\.gradle\caches\transforms-3\7c2b991ffee7d4db452bfe70f5605b71\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+47        </provider>
+48    </application>
+49
+50</manifest>
