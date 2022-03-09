@@ -56,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         String tContents = "";
 
-        if(!checkPermission())
-        {
-            requestPermission();
-        }
         try {
             InputStream stream = getAssets().open("test3.txt");
             int size = stream.available();
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             ConvertToPdf.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
                         RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
@@ -105,8 +101,12 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-                            }
-                        });
+                               }
+                           });
+                       }
+                    else{
+                        requestPermission();
+                    }
                     }
 
                 });
