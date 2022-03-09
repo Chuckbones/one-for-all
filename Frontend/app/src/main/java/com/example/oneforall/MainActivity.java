@@ -29,7 +29,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String url="http://localhost:5000/upload";
+    private final String url="https://ec31-106-212-107-29.ngrok.io";
 
 
     @Override
