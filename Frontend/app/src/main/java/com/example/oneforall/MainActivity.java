@@ -65,40 +65,46 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(tContents);
         File file=new File("/storage/self/primary/Download/sample1.txt");
 
-
         Button ConvertToPdf= findViewById(R.id.button);
-        ConvertToPdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OkHttpClient client = new OkHttpClient();
-                RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(),RequestBody.create(file,MediaType.parse("text/txt"))).build();
-                Request request = new Request.Builder().url(url).post(formBody).build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        Toast.makeText(MainActivity.this,"network not found",Toast.LENGTH_LONG).show();
-                    }
 
-                    @Override
-                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                        TextView textView = findViewById(R.id.textView);
+        if (file.exists()) {
+            ConvertToPdf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                    Request request = new Request.Builder().url(url).post(formBody).build();
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            Toast.makeText(MainActivity.this, "network not found", Toast.LENGTH_LONG).show();
+                        }
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    textView.setText(response.body().string());
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            TextView textView = findViewById(R.id.textView);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        textView.setText(response.body().string());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-                    }
-                });
+                        }
+                    });
 
-            }
-        });
+                }
+            });
+        }
+        else
+        {
+            textView.setText("File not found");
+        }
 
 
 
