@@ -3,11 +3,16 @@ import os
 from flask import Flask , request , redirect ,flash , url_for
 from werkzeug.utils import secure_filename
 
+app=Flask(__name__)
 
-UPLOAD_FOLDER = 'D:\oneforall'
+@app.route('/', methods=['GET'])
+def handle_call():
+    return "Successfully Connected"
+
+UPLOAD_FOLDER = "C:/Upload"
 ALLOWED_EXTENSIONS = {'txt'}
 
-app=Flask(__name__)
+
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -15,7 +20,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
 
