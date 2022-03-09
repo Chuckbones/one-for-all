@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String READ_EXTERNAL_STORAGE = "1";
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
-    private final String url="https://ec31-106-212-107-29.ngrok.io";
+    private final String url="https://9a6d-106-212-107-29.ngrok.io";
 
     ActivityResultLauncher <Intent> activityResultLauncher;
 
