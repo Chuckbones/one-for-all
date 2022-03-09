@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 app=Flask(__name__)
 
 
-UPLOAD_FOLDER = "C:/Upload" 
+UPLOAD_FOLDER = "/storage/emulated/0/Upload" 
 ALLOWED_EXTENSIONS = {'txt'}
 
 
