@@ -2605,7 +2605,6 @@ id bounceBoth
 id bounceEnd
 id bounceStart
 id button
-id button2
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -2937,7 +2936,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
-id textView
+id textView2
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3071,6 +3070,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_main2
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog

@@ -27,6 +27,9 @@
         android:theme="@style/Theme.Oneforall"
         android:usesCleartextTraffic="true" >
         <activity
+            android:name="com.example.oneforall.MainActivity2"
+            android:exported="false" />
+        <activity
             android:name="com.example.oneforall.MainActivity"
             android:exported="true" >
             <intent-filter>
