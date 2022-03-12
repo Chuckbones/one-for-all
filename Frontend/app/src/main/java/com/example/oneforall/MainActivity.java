@@ -8,28 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
 import java.io.*;
-
 import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -42,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String READ_EXTERNAL_STORAGE = "1";
     private static final String WRITE_EXTERNAL_STORAGE = "1";
+    String path;
+
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     private final String url="https://9a6d-106-212-107-29.ngrok.io";
 
     ActivityResultLauncher <Intent> activityResultLauncher;
+    ActivityResultLauncher <Intent> activityResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -53,25 +49,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView textView = findViewById(R.id.textView);
+        Button Browse = findViewById(R.id.button2);
+        Browse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Filechooser();
+            }
+        });
+        activityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode()== Activity.RESULT_OK){
+                    path = getIntent().getData().toString();
+                }
+            }
+        });
 
-        String tContents = "";
-
-        try {
-            InputStream stream = getAssets().open("test3.txt");
-            int size = stream.available();
-            byte[] buffer = new byte[size];
-            stream.read(buffer);
-            stream.close();
-            tContents = new String(buffer);
-        } catch (IOException e) {
-            // Handle exceptions here
+        String tContents = " ";
+        File file=new File(path);
+        if(file.exists()){
+            tContents = readfile(path);
+            textView.setText(tContents);
         }
-
-        textView.setText(tContents);
-        File file=new File("/storage/self/primary/Download/sample1.txt");
 
         Button ConvertToPdf= findViewById(R.id.button);
 
+        //Upload file
         if (file.exists()) {
             ConvertToPdf.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,26 +118,25 @@ public class MainActivity extends AppCompatActivity {
         {
             textView.setText("File not found");
         }
-
-
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode()== Activity.RESULT_OK){
-                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R){
-                        if(Environment.isExternalStorageManager()){
-                            Toast.makeText(getApplicationContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-            }
+        @Override
+        public void onActivityResult(ActivityResult result) {
+             if(result.getResultCode()== Activity.RESULT_OK){
+                 if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R){
+                     if(Environment.isExternalStorageManager()){
+                        Toast.makeText(getApplicationContext(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                     }
+                     else{
+                         Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                     }
+                 }
+             }
+        }
         });
 
     }
 
+    //check if the initial permission is granted
     boolean checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
@@ -145,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Request permission
     void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             try {
@@ -161,6 +164,8 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this, permission,0);
         }
     }
+
+    //check the final permission
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -182,6 +187,40 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //choose a file
+    public void Filechooser()
+    {
+        Intent i = new Intent (Intent.ACTION_GET_CONTENT);
+        i.setType("*/*");
+        i.addCategory(Intent.CATEGORY_OPENABLE);
 
+        try{
+            i.setAction("Choose a file");
+            activityResult.launch(i);
+        }
+        catch(android.content.ActivityNotFoundException ex){
+            Toast.makeText(this, "Please install a file manager", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //read file
+    public String readfile(String path){
+        String tContents = "";
+        if(checkPermission()) {
+            try {
+                FileInputStream stream = new FileInputStream(path);
+                int size = stream.available();
+                byte[] buffer = new byte[size];
+                stream.read(buffer);
+                stream.close();
+                tContents = new String(buffer);
+            } catch (IOException e) {
+            }
+        }
+        else{
+            requestPermission();
+        }
+        return tContents;
+    }
 
 }
