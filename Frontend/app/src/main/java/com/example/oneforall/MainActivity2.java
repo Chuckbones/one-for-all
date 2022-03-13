@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,7 +20,10 @@ import android.provider.Settings;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -34,8 +38,19 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
+        try {
+            Intent view = new Intent();
+            view.setAction(Intent.ACTION_VIEW);
+            String type = "image/*";
+            view.setDataAndType(Uri.parse(path), type);
+            view.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(view);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Cannot open file", Toast.LENGTH_SHORT).show();
+        }
         TextView textView = findViewById(R.id.textView2);
-        textView.setText(path);
+        String data = readfile(path);
+        textView.setText(data);
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -54,20 +69,15 @@ public class MainActivity2 extends AppCompatActivity {
     }
     public String readfile(String path){
         String tContents = "";
-        if(checkPermission()) {
             try {
-                FileInputStream stream = new FileInputStream(path);
-                int size = stream.available();
-                byte[] buffer = new byte[size];
-                stream.read(buffer);
-                stream.close();
-                tContents = new String(buffer);
+                File file = new File(path);
+                BufferedReader br=new BufferedReader(new FileReader(file));
+                String s;
+                while((s=br.readLine())!=null){
+                    tContents = tContents + s;
+                }
             } catch (IOException e) {
             }
-        }
-        else {
-            requestPermission();
-        }
         return tContents;
     }
     boolean checkPermission() {
