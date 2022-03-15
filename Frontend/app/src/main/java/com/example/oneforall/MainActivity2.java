@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,6 +18,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,11 +30,21 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class MainActivity2 extends AppCompatActivity {
     private static final String READ_EXTERNAL_STORAGE = "1";
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
+    private final String url="https://9800-122-163-252-210.ngrok.io";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,19 +52,155 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
-        try {
-            Intent view = new Intent();
-            view.setAction(Intent.ACTION_VIEW);
-            String type = "image/*";
-            view.setDataAndType(Uri.parse(path), type);
-            view.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(view);
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Cannot open file", Toast.LENGTH_SHORT).show();
-        }
+        int index=path.indexOf("/storage");
+        path = path.substring(index);
+
         TextView textView = findViewById(R.id.textView2);
-        String data = readfile(path);
-        textView.setText(data);
+
+        String tContents = "";
+        File file = new File(path);
+        try {
+
+            BufferedReader br=new BufferedReader(new FileReader(file));
+            String s;
+            while((s=br.readLine())!=null){
+                tContents = tContents + s;
+            }
+        } catch (IOException e) {
+        }
+        textView.setText(tContents);
+
+        ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todocx);
+
+        ConvertToDocx.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (file.exists()) {
+                        if (checkPermission()) {
+                            OkHttpClient client = new OkHttpClient();
+                            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                            Request request = new Request.Builder().url(url).post(formBody).build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                    Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                textView.setText(response.body().string());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+
+                                }
+                            });
+                        } else {
+                            requestPermission();
+                        }
+                    } else {
+                        textView.setText("File not found");
+                    }
+                }
+        });
+
+
+
+        ImageButton ConvertToPdf= (ImageButton) findViewById(R.id.topdf);
+
+        ConvertToPdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (file.exists()) {
+                    if (checkPermission()) {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        Request request = new Request.Builder().url(url).post(formBody).build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            textView.setText(response.body().string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                    } else {
+                        requestPermission();
+                    }
+                } else {
+                    textView.setText("File not found");
+                }
+            }
+        });
+
+
+        ImageButton ConvertToJpg= (ImageButton) findViewById(R.id.tojpg);
+
+        ConvertToJpg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (file.exists()) {
+                    if (checkPermission()) {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        Request request = new Request.Builder().url(url).post(formBody).build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            textView.setText(response.body().string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                            }
+                        });
+                    } else {
+                        requestPermission();
+                    }
+                } else {
+                    textView.setText("File not found");
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
@@ -67,19 +217,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
-    public String readfile(String path){
-        String tContents = "";
-            try {
-                File file = new File(path);
-                BufferedReader br=new BufferedReader(new FileReader(file));
-                String s;
-                while((s=br.readLine())!=null){
-                    tContents = tContents + s;
-                }
-            } catch (IOException e) {
-            }
-        return tContents;
-    }
+
     boolean checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
