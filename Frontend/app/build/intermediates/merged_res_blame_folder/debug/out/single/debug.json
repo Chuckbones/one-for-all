@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\drawable_pdf.png.flat",
+        "source": "D:\\oneforall2\\app\\src\\main\\res\\drawable\\pdf.png"
+    },
+    {
         "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "D:\\oneforall2\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
@@ -52,12 +56,20 @@
         "source": "D:\\oneforall2\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp"
     },
     {
+        "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\drawable_jpg.png.flat",
+        "source": "D:\\oneforall2\\app\\src\\main\\res\\drawable\\jpg.png"
+    },
+    {
         "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\layout_activity_main.xml.flat",
         "source": "D:\\oneforall2\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
         "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
         "source": "D:\\oneforall2\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\drawable_docx.png.flat",
+        "source": "D:\\oneforall2\\app\\src\\main\\res\\drawable\\docx.png"
     },
     {
         "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher_round.webp.flat",

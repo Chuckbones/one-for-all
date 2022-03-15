@@ -7,10 +7,17 @@ color purple_700
 color teal_200
 color teal_700
 color white
+drawable docx
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable jpg
+drawable pdf
 id button
+id scrollView2
 id textView2
+id todocx
+id tojpg
+id topdf
 layout activity_main
 layout activity_main2
 mipmap ic_launcher

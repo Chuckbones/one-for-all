@@ -2450,6 +2450,7 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable docx
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
@@ -2461,6 +2462,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable jpg
 drawable m3_appbar_background
 drawable m3_popupmenu_background_overlay
 drawable m3_radiobutton_ripple
@@ -2502,6 +2504,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable pdf
 drawable test_custom_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -2859,6 +2862,7 @@ id scroll
 id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
+id scrollView2
 id scrollable
 id search_badge
 id search_bar
@@ -2950,9 +2954,12 @@ id time
 id title
 id titleDividerNoCustom
 id title_template
+id todocx
 id toggle
+id tojpg
 id top
 id topPanel
+id topdf
 id touch_outside
 id transitionToEnd
 id transitionToStart
