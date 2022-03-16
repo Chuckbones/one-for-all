@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity2">
 
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="366dp"
-        android:layout_height="577dp"
+        android:layout_width="412dp"
+        android:layout_height="641dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/tojpg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,9 +27,17 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="40dp"
                 android:text="TextView"
                 tools:layout_editor_absoluteX="176dp"
                 tools:layout_editor_absoluteY="324dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/screen_background_light" />
+
 
         </LinearLayout>
 
@@ -36,38 +46,33 @@
 
     <ImageButton
         android:id="@+id/todocx"
-        android:layout_width="120dp"
+        android:layout_width="128dp"
         android:layout_height="64dp"
         android:layout_marginStart="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/topdf"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/tojpg"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toEndOf="@+id/topdf"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:srcCompat="@drawable/docx" />
 
     <ImageButton
-        android:id="@+id/tojpg"
-        android:layout_width="113dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/topdf"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:srcCompat="@drawable/jpg" />
-
-    <ImageButton
         android:id="@+id/topdf"
-        android:layout_width="114dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tojpg"
-        app:layout_constraintStart_toEndOf="@+id/todocx"
+        android:layout_width="126dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:srcCompat="@drawable/pdf" />
+
+    <ImageButton
+        android:id="@+id/tojpg"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:srcCompat="@drawable/jpg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

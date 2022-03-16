@@ -18,4 +18,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:padding="60dp"
+        tools:layout_editor_absoluteX="68dp"
+        tools:layout_editor_absoluteY="161dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

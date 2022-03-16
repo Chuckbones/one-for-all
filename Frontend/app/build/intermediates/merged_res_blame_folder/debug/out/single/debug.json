@@ -52,6 +52,10 @@
         "source": "D:\\oneforall2\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.webp"
     },
     {
+        "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\layout_activity_main3.xml.flat",
+        "source": "D:\\oneforall2\\app\\src\\main\\res\\layout\\activity_main3.xml"
+    },
+    {
         "merged": "D:\\oneforall2\\app\\build\\intermediates\\merged_res\\debug\\mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "D:\\oneforall2\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.webp"
     },

@@ -4,10 +4,13 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -19,7 +22,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onActivityResult(Uri result) {
             path = result.toString();
-            readActivity();
+            String extention [] = {"pdf", "docx", "doc", "document"};
+            for(String n : extention){
+                if(path.indexOf(n)>0){
+                    readweb();
+                }
+                else{
+                    readActivity();
+                }
+            }
+
+
         }
     });
     @Override
@@ -51,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
         a.putExtra("path",path);
         startActivity(a);
     }
+    public void readweb(){
 
-
-
+        Intent b= new Intent(MainActivity.this, MainActivity3.class);
+        b.putExtra("path",path);
+        startActivity(b);
+    }
 }

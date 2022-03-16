@@ -21,6 +21,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,32 +45,33 @@ public class MainActivity2 extends AppCompatActivity {
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
+    TextView textView = findViewById(R.id.textView2);
+    ImageView im = (ImageView) findViewById(R.id.imageView);
     private final String url="https://9800-122-163-252-210.ngrok.io";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
-        int index=path.indexOf("/storage");
-        path = path.substring(index);
 
-        TextView textView = findViewById(R.id.textView2);
+        im.setImageURI(Uri.parse(path));
 
-        String tContents = "";
+
         File file = new File(path);
+        StringBuilder tContents = new StringBuilder();
         try {
-
             BufferedReader br=new BufferedReader(new FileReader(file));
-            String s;
+            String s ;
             while((s=br.readLine())!=null){
-                tContents = tContents + s;
+                tContents.append(s).append("/n");
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            textView.setText(path);
         }
-        textView.setText(tContents);
-
+//************************************************************************************************************
         ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todocx);
 
         ConvertToDocx.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +113,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 
-
+//**********************************************************************************************************
         ImageButton ConvertToPdf= (ImageButton) findViewById(R.id.topdf);
 
         ConvertToPdf.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +154,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-
+//********************************************************************************************************************
         ImageButton ConvertToJpg= (ImageButton) findViewById(R.id.tojpg);
 
         ConvertToJpg.setOnClickListener(new View.OnClickListener() {
@@ -194,13 +196,7 @@ public class MainActivity2 extends AppCompatActivity {
         });
 
 
-
-
-
-
-
-
-
+//**************************************************************************************************************
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
