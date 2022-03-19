@@ -45,8 +45,7 @@ public class MainActivity2 extends AppCompatActivity {
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
-    TextView textView = findViewById(R.id.textView2);
-    ImageView im = (ImageView) findViewById(R.id.imageView);
+
     private final String url="https://9800-122-163-252-210.ngrok.io";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +53,12 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
+        String uri = a.getString("uri");
+        String abs =path.substring(5);
 
-        im.setImageURI(Uri.parse(path));
+        TextView textView = findViewById(R.id.textView2);
 
-
-        File file = new File(path);
+        File file = new File(abs);
         StringBuilder tContents = new StringBuilder();
         try {
             BufferedReader br=new BufferedReader(new FileReader(file));
@@ -69,7 +69,7 @@ public class MainActivity2 extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            textView.setText(path);
+            textView.setText(tContents);
         }
 //************************************************************************************************************
         ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todocx);
@@ -80,7 +80,11 @@ public class MainActivity2 extends AppCompatActivity {
                     if (file.exists()) {
                         if (checkPermission()) {
                             OkHttpClient client = new OkHttpClient();
-                            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
+                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
                             Request request = new Request.Builder().url(url).post(formBody).build();
                             client.newCall(request).enqueue(new Callback() {
                                 @Override
@@ -122,7 +126,11 @@ public class MainActivity2 extends AppCompatActivity {
                 if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override
@@ -163,7 +171,11 @@ public class MainActivity2 extends AppCompatActivity {
                 if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override

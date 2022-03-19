@@ -13,26 +13,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    String path;
-
+    String path,path_uri,path_root;
     ActivityResultLauncher <String> activityResult = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
-            path = result.toString();
-            String extention [] = {"pdf", "docx", "doc", "document"};
-            for(String n : extention){
-                if(path.indexOf(n)>0){
-                    readweb();
-                }
-                else{
-                    readActivity();
-                }
-            }
-
-
+            path = result.normalizeScheme().getPath().toString();
+            path=path.substring(5);
+            path_uri = result.toString();
+            TextView t3 = findViewById(R.id.textView3);
+            t3.setText(path);
+            readActivity();
         }
     });
     @Override
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     public void readActivity(){
 
         Intent a= new Intent(MainActivity.this, MainActivity2.class);
-        a.putExtra("path",path);
+        a.putExtra("path",path).putExtra("uri",path_uri);
         startActivity(a);
     }
     public void readweb(){

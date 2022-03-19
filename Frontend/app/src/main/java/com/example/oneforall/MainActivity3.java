@@ -42,10 +42,8 @@ import okhttp3.Response;
 
 public class MainActivity3 extends AppCompatActivity {
 
-    WebView webView = (WebView) findViewById(R.id.web);
     URI r;
     URL u;
-    TextView textView = findViewById(R.id.textView);
     private static final String READ_EXTERNAL_STORAGE = "1";
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     ActivityResultLauncher<Intent> activityResultLauncher;
@@ -57,6 +55,8 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         Bundle b = getIntent().getExtras();
         String path = b.getString("path");
+        WebView webView = (WebView) findViewById(R.id.web);
+        TextView textView = findViewById(R.id.textView);
         textView.setText(path);
 
         try {
@@ -85,7 +85,10 @@ public class MainActivity3 extends AppCompatActivity {
                 if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/doc")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/docx")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Portable File Format/pdf"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override
@@ -127,7 +130,10 @@ public class MainActivity3 extends AppCompatActivity {
                 if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/doc")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/docx")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Portable File Format/pdf"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override
@@ -168,7 +174,10 @@ public class MainActivity3 extends AppCompatActivity {
                 if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/doc")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Document/docx")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Portable File Format/pdf"))).build();
                         Request request = new Request.Builder().url(url).post(formBody).build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override

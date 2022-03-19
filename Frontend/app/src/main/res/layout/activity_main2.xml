@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity2">
 
 
@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"
                 android:padding="40dp"
                 android:text="TextView"
-                tools:layout_editor_absoluteX="176dp"
-                tools:layout_editor_absoluteY="324dp" />
+                tools:layout_editor_absoluteX="match_parent"
+                tools:layout_editor_absoluteY="match_parent" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -51,6 +51,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="2dp"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tojpg"
         app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toEndOf="@+id/topdf"
@@ -62,6 +64,10 @@
         android:layout_width="126dp"
         android:layout_height="66dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/todocx"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:srcCompat="@drawable/pdf" />
@@ -70,8 +76,12 @@
         android:id="@+id/tojpg"
         android:layout_width="130dp"
         android:layout_height="60dp"
+        android:layout_marginStart="13dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/todocx"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:srcCompat="@drawable/jpg" />
 

@@ -28,10 +28,10 @@
         android:usesCleartextTraffic="true" >
         <activity
             android:name="com.example.oneforall.MainActivity3"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="com.example.oneforall.MainActivity2"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name="com.example.oneforall.MainActivity"
             android:exported="true" >

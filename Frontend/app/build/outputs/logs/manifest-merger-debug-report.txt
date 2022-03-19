@@ -115,15 +115,15 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] C:\Users\Ashish Jauhari\.gr
 	android:usesCleartextTraffic
 		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:20:9-44
 activity#com.example.oneforall.MainActivity3
-ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:22:9-24:40
+ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:22:9-24:39
 	android:exported
-		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:24:13-37
+		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:24:13-36
 	android:name
 		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:23:13-42
 activity#com.example.oneforall.MainActivity2
-ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:25:9-27:40
+ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:25:9-27:39
 	android:exported
-		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:27:13-37
+		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:27:13-36
 	android:name
 		ADDED from D:\oneforall2\app\src\main\AndroidManifest.xml:26:13-42
 activity#com.example.oneforall.MainActivity

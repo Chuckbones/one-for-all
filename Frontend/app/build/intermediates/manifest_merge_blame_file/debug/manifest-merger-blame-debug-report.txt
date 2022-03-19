@@ -47,17 +47,17 @@
 28        android:usesCleartextTraffic="true" >
 28-->D:\oneforall2\app\src\main\AndroidManifest.xml:20:9-44
 29        <activity
-29-->D:\oneforall2\app\src\main\AndroidManifest.xml:22:9-24:40
+29-->D:\oneforall2\app\src\main\AndroidManifest.xml:22:9-24:39
 30            android:name="com.example.oneforall.MainActivity3"
 30-->D:\oneforall2\app\src\main\AndroidManifest.xml:23:13-42
-31            android:exported="false" />
-31-->D:\oneforall2\app\src\main\AndroidManifest.xml:24:13-37
+31            android:exported="true" />
+31-->D:\oneforall2\app\src\main\AndroidManifest.xml:24:13-36
 32        <activity
-32-->D:\oneforall2\app\src\main\AndroidManifest.xml:25:9-27:40
+32-->D:\oneforall2\app\src\main\AndroidManifest.xml:25:9-27:39
 33            android:name="com.example.oneforall.MainActivity2"
 33-->D:\oneforall2\app\src\main\AndroidManifest.xml:26:13-42
-34            android:exported="false" />
-34-->D:\oneforall2\app\src\main\AndroidManifest.xml:27:13-37
+34            android:exported="true" />
+34-->D:\oneforall2\app\src\main\AndroidManifest.xml:27:13-36
 35        <activity
 35-->D:\oneforall2\app\src\main\AndroidManifest.xml:28:9-36:20
 36            android:name="com.example.oneforall.MainActivity"
