@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     c++;
             }
             if(c>0)
-                readweb();
+                readActivity();
             else
                 readActivity();
         }
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public void readweb(){
 
         Intent b= new Intent(MainActivity.this, MainActivity3.class);
-        b.putExtra("path",path);
+        b.putExtra("path",path).putExtra("uri",path_uri);
         startActivity(b);
     }
 }

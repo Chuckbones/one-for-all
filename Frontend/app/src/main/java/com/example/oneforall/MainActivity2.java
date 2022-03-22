@@ -48,7 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
 
-    private final String url="https://9011-171-79-97-94.ngrok.io";
+    private final String url="https://4663-223-226-146-129.ngrok.io";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +56,7 @@ public class MainActivity2 extends AppCompatActivity {
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
         String uri = a.getString("uri");
+        path=path.substring(5);
         TextView textView = findViewById(R.id.textView2);
         ImageView im = (ImageView) findViewById(R.id.imageView);
         ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todocx);

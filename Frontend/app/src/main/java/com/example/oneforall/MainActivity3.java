@@ -55,11 +55,12 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         Bundle b = getIntent().getExtras();
         String path = b.getString("path");
+        String uri = b.getString("uri");
         WebView webView = (WebView) findViewById(R.id.web);
         TextView textView = findViewById(R.id.textView);
 
         try {
-            r=new URI(path);
+            r=new URI(uri);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -74,6 +75,7 @@ public class MainActivity3 extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://docs.google.com/gview?embedded=true&url=" + u);
 
+        path=path.substring(5);
         File file = new File(path);
         //************************************************************************************************************
         ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todoc);
