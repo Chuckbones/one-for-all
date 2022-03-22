@@ -29,8 +29,10 @@
                 android:layout_height="wrap_content"
                 android:padding="40dp"
                 android:text="TextView"
+                android:visibility="visible"
                 tools:layout_editor_absoluteX="match_parent"
-                tools:layout_editor_absoluteY="match_parent" />
+                tools:layout_editor_absoluteY="match_parent"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/imageView"

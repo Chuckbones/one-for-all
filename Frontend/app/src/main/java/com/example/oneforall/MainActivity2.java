@@ -13,6 +13,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -46,7 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
 
-    private final String url="https://9800-122-163-252-210.ngrok.io";
+    private final String url="https://9011-171-79-97-94.ngrok.io";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,37 +56,66 @@ public class MainActivity2 extends AppCompatActivity {
         Bundle a = getIntent().getExtras();
         String path = a.getString("path");
         String uri = a.getString("uri");
-        String abs =path.substring(5);
-
         TextView textView = findViewById(R.id.textView2);
-
-        File file = new File(abs);
-        StringBuilder tContents = new StringBuilder();
-        try {
-            BufferedReader br=new BufferedReader(new FileReader(file));
-            String s ;
-            while((s=br.readLine())!=null){
-                tContents.append(s).append("/n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            textView.setText(tContents);
-        }
-//************************************************************************************************************
+        ImageView im = (ImageView) findViewById(R.id.imageView);
         ImageButton ConvertToDocx= (ImageButton) findViewById(R.id.todocx);
+        ImageButton ConvertToPdf= (ImageButton) findViewById(R.id.topdf);
+        ImageButton ConvertToJpg= (ImageButton) findViewById(R.id.tojpg);
 
-        ConvertToDocx.setOnClickListener(new View.OnClickListener() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeFile(path, options);
+        if (options.outWidth != -1 && options.outHeight != -1) {
+            im.setImageURI(Uri.parse(uri));
+            File file = new File(path);
+//************************************************************************************************************
+            ConvertToDocx.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (file.exists()) {
+                    if (checkPermission()) {
+                        OkHttpClient client = new OkHttpClient();
+                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
+                        Request request = new Request.Builder().url(url).post(formBody).build();
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            textView.setText(response.body().string());
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        requestPermission();
+                    }
+                }
+            });
+
+//**********************************************************************************************************
+
+            ConvertToPdf.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                         if (checkPermission()) {
                             OkHttpClient client = new OkHttpClient();
                             RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
-                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
-                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
-                            .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
                             Request request = new Request.Builder().url(url).post(formBody).build();
                             client.newCall(request).enqueue(new Callback() {
                                 @Override
@@ -110,104 +141,173 @@ public class MainActivity2 extends AppCompatActivity {
                         } else {
                             requestPermission();
                         }
-                    } else {
-                        textView.setText("File not found");
-                    }
+
                 }
-        });
-
-
-//**********************************************************************************************************
-        ImageButton ConvertToPdf= (ImageButton) findViewById(R.id.topdf);
-
-        ConvertToPdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (file.exists()) {
-                    if (checkPermission()) {
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
-                        Request request = new Request.Builder().url(url).post(formBody).build();
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            textView.setText(response.body().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-
-                            }
-                        });
-                    } else {
-                        requestPermission();
-                    }
-                } else {
-                    textView.setText("File not found");
-                }
-            }
-        });
+            });
 
 //********************************************************************************************************************
-        ImageButton ConvertToJpg= (ImageButton) findViewById(R.id.tojpg);
 
-        ConvertToJpg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (file.exists()) {
-                    if (checkPermission()) {
-                        OkHttpClient client = new OkHttpClient();
-                        RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
-                                .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
-                        Request request = new Request.Builder().url(url).post(formBody).build();
-                        client.newCall(request).enqueue(new Callback() {
-                            @Override
-                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
-                            }
+            ConvertToJpg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        if (checkPermission()) {
+                            OkHttpClient client = new OkHttpClient();
+                            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpg")))
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/jpeg")))
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("Image/png"))).build();
+                            Request request = new Request.Builder().url(url).post(formBody).build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                    Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                                }
 
-                            @Override
-                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            textView.setText(response.body().string());
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
+                                @Override
+                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                textView.setText(response.body().string());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
+                                    });
+
+                                }
+                            });
+                        } else {
+                            requestPermission();
+                        }
+                }
+            });
+        }
+        else {
+            StringBuilder tContents = new StringBuilder();
+            File file = new File(path);
+            try {
+                BufferedReader br=new BufferedReader(new FileReader(file));
+                String s ;
+                while((s=br.readLine())!=null){
+                    tContents.append(s).append("/n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }finally {
+                textView.setText(tContents);
+//************************************************************************************************************
+
+                ConvertToDocx.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (checkPermission()) {
+                            OkHttpClient client = new OkHttpClient();
+                            RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                    .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                            Request request = new Request.Builder().url(url).post(formBody).build();
+                            client.newCall(request).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                    Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                textView.setText(response.body().string());
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            requestPermission();
+                        }
+                    }
+                });
+
+//**********************************************************************************************************
+
+                ConvertToPdf.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            if (checkPermission()) {
+                                OkHttpClient client = new OkHttpClient();
+                                RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                        .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                                Request request = new Request.Builder().url(url).post(formBody).build();
+                                client.newCall(request).enqueue(new Callback() {
+                                    @Override
+                                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                        Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    textView.setText(response.body().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+
                                     }
                                 });
-
+                            } else {
+                                requestPermission();
                             }
-                        });
-                    } else {
-                        requestPermission();
                     }
-                } else {
-                    textView.setText("File not found");
-                }
+                });
+
+//********************************************************************************************************************
+
+                ConvertToJpg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                            if (checkPermission()) {
+                                OkHttpClient client = new OkHttpClient();
+                                RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                                        .addFormDataPart("file", file.getName(), RequestBody.create(file, MediaType.parse("text/txt"))).build();
+                                Request request = new Request.Builder().url(url).post(formBody).build();
+                                client.newCall(request).enqueue(new Callback() {
+                                    @Override
+                                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                        Toast.makeText(MainActivity2.this, "network not found", Toast.LENGTH_LONG).show();
+                                    }
+
+                                    @Override
+                                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                try {
+                                                    textView.setText(response.body().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        });
+
+                                    }
+                                });
+                            } else {
+                                requestPermission();
+                            }
+                    }
+                });
             }
-        });
-
-
+        }
 //**************************************************************************************************************
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override

@@ -19,16 +19,24 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    String path,path_uri,path_root;
+    String path,path_uri;
     ActivityResultLauncher <String> activityResult = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
-            path = result.normalizeScheme().getPath().toString();
-            path=path.substring(5);
+            path = result.normalizeScheme().getPath();
             path_uri = result.toString();
-            TextView t3 = findViewById(R.id.textView3);
-            t3.setText(path);
-            readActivity();
+            int c=0;
+            int a = path.lastIndexOf(".");
+            String path_root = path.substring(a+1);
+            String extention [] ={"doc", "pdf", "docx"};
+            for(String n : extention){
+                if(path_root.equalsIgnoreCase(n))
+                    c++;
+            }
+            if(c>0)
+                readweb();
+            else
+                readActivity();
         }
     });
     @Override

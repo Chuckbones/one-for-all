@@ -17,7 +17,6 @@ id imageView
 id scrollView2
 id textView
 id textView2
-id textView3
 id todoc
 id todocx
 id tojp

@@ -48,7 +48,7 @@ public class MainActivity3 extends AppCompatActivity {
     private static final String WRITE_EXTERNAL_STORAGE = "1";
     ActivityResultLauncher<Intent> activityResultLauncher;
     String[] permission= {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
-    private final String url="https://9800-122-163-252-210.ngrok.io";
+    private final String url="https://9011-171-79-97-94.ngrok.io";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +57,6 @@ public class MainActivity3 extends AppCompatActivity {
         String path = b.getString("path");
         WebView webView = (WebView) findViewById(R.id.web);
         TextView textView = findViewById(R.id.textView);
-        textView.setText(path);
 
         try {
             r=new URI(path);
@@ -82,7 +81,6 @@ public class MainActivity3 extends AppCompatActivity {
         ConvertToDocx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
                         RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -114,9 +112,6 @@ public class MainActivity3 extends AppCompatActivity {
                     } else {
                         requestPermission();
                     }
-                } else {
-                    textView.setText("File not found");
-                }
             }
         });
 
@@ -127,7 +122,6 @@ public class MainActivity3 extends AppCompatActivity {
         ConvertToPdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
                         RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -159,9 +153,6 @@ public class MainActivity3 extends AppCompatActivity {
                     } else {
                         requestPermission();
                     }
-                } else {
-                    textView.setText("File not found");
-                }
             }
         });
 
@@ -171,7 +162,6 @@ public class MainActivity3 extends AppCompatActivity {
         ConvertToJpg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (file.exists()) {
                     if (checkPermission()) {
                         OkHttpClient client = new OkHttpClient();
                         RequestBody formBody = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -203,9 +193,6 @@ public class MainActivity3 extends AppCompatActivity {
                     } else {
                         requestPermission();
                     }
-                } else {
-                    textView.setText("File not found");
-                }
             }
         });
 
