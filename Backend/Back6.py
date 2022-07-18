@@ -1,5 +1,7 @@
+from distutils.command.config import config
 from fileinput import filename
 import os
+from tkinter import N
 import docx2txt
 
 from flask import Flask, request, redirect, flash, url_for, render_template, current_app
@@ -74,18 +76,24 @@ def convert_xlsx_to_pdf(input_name, output_name):
     app.Exit()
 
 
+def get_new_filename(file_name, extension):
+    return file_name + '-edited.' + extension
+
+
 def convert_file(input_name):
     filename = input_name.split('.')[0]
     old_extension = input_name.split('.')[-1]
    # extension = input ()
 
+    # pdf -> docx
+    # TODO: do similar to all choices
     if old_extension == 'pdf':
-        extension = 'docx'
-        convert_pdf_to_docx(
-            os.path.join(app.config['UPLOAD_FOLDER'], input_name),
-            os.path.join(app.config['UPLOAD_FOLDER'],
-                         filename + '-edited.' + extension)
-        )
+        new_filename = get_new_filename(filename, 'docx')
+        convert_pdf_to_docx(os.path.join(app.config['UPLOAD_FOLDER'], input_name), os.path.join(
+            app.config['UPLOAD_FOLDER'], new_filename))
+        return new_filename
+
+    # docx -> pdf
     elif old_extension == 'docx':
         extension = 'pdf'
         convert_docx_to_pdf(
@@ -93,6 +101,7 @@ def convert_file(input_name):
             os.path.join(app.config['UPLOAD_FOLDER'],
                          filename + '-edited.' + extension)
         )
+        return extension
     elif old_extension == 'png':
         extension = 'pdf'
         convert_png_to_pdf(
@@ -100,6 +109,7 @@ def convert_file(input_name):
             os.path.join(app.config['UPLOAD_FOLDER'],
                          filename + '-edited.' + extension)
         )
+        return extension
     elif old_extension == 'jpg':
         extension = 'png'
         convert_jpg_to_png(
@@ -107,6 +117,7 @@ def convert_file(input_name):
             os.path.join(app.config['UPLOAD_FOLDER'],
                          filename + '-edited.' + extension)
         )
+        return extension
     elif old_extension == 'txt':
         extension = 'pdf'
         convert_txt_to_pdf(
@@ -114,6 +125,7 @@ def convert_file(input_name):
             os.path.join(app.config['UPLOAD_FOLDER'],
                          filename + '-edited.' + extension)
         )
+        return extension
     elif old_extension == 'xlsx':
         extension = 'pdf'
         convert_xlsx_to_pdf(
@@ -121,18 +133,18 @@ def convert_file(input_name):
             os.path.join(app.config['UPLOAD_FOLDER'],
                          filename + '-edited.' + extension)
         )
+        return extension
 
     else:
         print('Invalid!!')
+        return ''
 
-
-# new_filename = filename + '-edited.' + extension
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
 
-UPLOAD_FOLDER = "C:/Upload"
+UPLOAD_FOLDER = os.path.join(app.root_path, "temp/uploads")
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx', 'png', 'jpg', 'jpeg'}
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -157,17 +169,23 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            # TODO: confirm that upload folder is present
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            new_filename = convert_file(filename)
+            return redirect(url_for('download_file', filename=new_filename))
 
-            convert_file(filename)
-            # download(new_filename)
-
-        return redirect(url_for('upload_file', name=filename))
+        # return redirect(url_for('upload_file', name=filename))
     return render_template('index.html')
 
 
+@app.route('/download/<path:filename>', methods=['GET', 'POST'])
+def download_file(filename):
+    print('in download,', filename)
+    return download(filename)
+
 def download(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename, as_attachment=True)
+    uploads = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
+    return send_from_directory(uploads, filename)
 
 
 app.run(debug=True, host="localhost")
