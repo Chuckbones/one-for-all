@@ -1,0 +1,23 @@
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 40px 80px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(Raleway-VariableFont_wght);
+}
+  
+h2 {
+    font-family: myFirstFont;
+    color: darkgreen;
+}
