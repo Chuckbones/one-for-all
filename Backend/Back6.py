@@ -160,7 +160,7 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             convert_file(filename)
-            download(new_filename)
+            # download(new_filename)
 
         return redirect(url_for('upload_file', name=filename))
     return render_template('index.html')
