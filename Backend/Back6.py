@@ -3,6 +3,7 @@ from fileinput import filename
 import os
 from tkinter import N
 import docx2txt
+import tabula
 
 from flask import Flask, request, redirect, flash, url_for, render_template, current_app
 from werkzeug.utils import secure_filename
@@ -74,6 +75,14 @@ def convert_xlsx_to_pdf(input_name, output_name):
     finally:
         Workbook.Close()
     app.Exit()
+
+
+def convert_pdf_to_csv(input_name, output_name):
+    df = tabula.read_pdf(input_name, pages='all')[0]
+    # convert PDF into CSV
+    tabula.convert_into(input_name, output_name,
+                        output_format="csv", pages='all')
+    print(df)
 
 
 def get_new_filename(file_name, extension):
@@ -180,8 +189,8 @@ def upload_file():
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 def download_file(filename):
-    print('in download,', filename)
     return download(filename)
+
 
 def download(filename):
     uploads = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])

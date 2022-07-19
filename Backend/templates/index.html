@@ -7,25 +7,25 @@
   <link rel="stylesheets" href="./styles/index.css">
   <title>One For All</title>
   <style>
-    
     @font-face {
       font-family: elianto;
       src: url('C:\Users\shiva\Documents\Code\Python\one-for-all\Backend\templates\Elianto-Regular.ttf');
     }
-    
+
     .container {
       width: 17.4%;
       position: relative;
       left: 1.1%;
-      
+
       margin: auto;
 
       display: flex;
       flex-direction: column;
       justify-content: center;
-      
-      
+
+
     }
+
     h1 {
       font-family: 'elianto';
       font-size: 40px;
@@ -34,11 +34,16 @@
       width: 100%;
       text-align: center;
     }
+
     .download-button-container {
       width: 100%;
       margin: 10px 0;
     }
   </style>
+  <script type="file/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
+  <script type=file/javascript> $(function() { $("a#test").click(function (event) { $.getJSON('/download', { },
+  function(data) { }); return false; }); }); </script>
+
 </head>
 
 <body>
@@ -64,8 +69,8 @@
       background-color: rgb(30, 176, 255);
       border: black;
       color: white;
-      
-      
+
+
       width: 100%;
       cursor: pointer;
       font-size: 20px;
@@ -79,6 +84,8 @@
       background-color: rgb(225, 150, 65);
     }
   </style>
+
+
   <div class="container">
     <h1>
       One For All
@@ -90,12 +97,18 @@
       <input type=submit value=Upload>
 
 
+      <div class="download-button-container">
+
+
+        <form>
+          <a href=# id=test><button class='btn2'>Download</button></a>
+        </form>
+
+
+
+      </div>
+
     </form>
-    <div class="download-button-container">
-      <button class="btn2" onclick="">
-        Download
-      </button>
-    </div>
 
   </div>
 
